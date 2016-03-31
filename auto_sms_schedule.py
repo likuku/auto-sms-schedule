@@ -3,7 +3,7 @@
 
 """
 auto_sms_schedule.py
-Updated by kuku.li on 2016-03-31.
+Updated by kuku.li on 2016-04-01.
 Created by kuku.li on 2016-03-31.
 Copyright (c) 2016 __MyCompanyName__. All rights reserved.
 """
@@ -11,8 +11,27 @@ Copyright (c) 2016 __MyCompanyName__. All rights reserved.
 import sys
 import os
 import time
+import threading
 import subprocess
 import Queue
+
+class SMSAction(threading.Thread):
+    """docstring for SMSAction"""
+    def __init__(self, arg):
+        super(SMSAction, self).__init__()
+        self.arg = arg
+    def setAction(input_action):
+        pass
+    def run(self):
+        pass
+        self.doAction()
+
+def do_actions_from_queue(input_num_cpu_cores,input_actions_queue):
+    pass
+
+def get_num_cpu_cores():
+    pass
+    return (4)
 
 def make_queue():
     pass
