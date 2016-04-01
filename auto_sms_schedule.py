@@ -40,6 +40,7 @@ def make_queue():
     for _action in _src_action_list:
         pass
         _tmp_queue.put(_action)
+    return(_tmp_queue)
 
 def check_process():
     pass
