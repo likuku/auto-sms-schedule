@@ -20,14 +20,17 @@ class SMSAction(threading.Thread):
     def __init__(self, arg):
         super(SMSAction, self).__init__()
         self.arg = arg
-    def setAction(input_action):
-        pass
     def run(self):
         pass
-        self.doAction()
+        self.arg()
 
-def do_actions_from_queue(input_num_cpu_cores,input_actions_queue):
+def do_actions_from_queue(input_actions_queue):
     pass
+    _tmp_queue = input_actions_queue
+    while not _tmp_queue.empty():
+        _tmp_action = _tmp_queue.get()
+        _cmd_str = ('/usr/bin/php %s/test.php') % (_tmp_action)
+        print ('os.system(_cmd_str)')
 
 def get_num_cpu_cores():
     pass
