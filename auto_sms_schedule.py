@@ -22,7 +22,13 @@ class SMSAction(threading.Thread):
         self.arg = arg
     def run(self):
         pass
-        self.arg()
+        try:
+            pass
+            self.arg()
+        except Exception as e:
+            #raise
+            print ('SMSAction.run() have some Exception: %s') % (e)
+            pass
 
 def do_actions_from_queue(input_actions_queue):
     pass
@@ -30,7 +36,8 @@ def do_actions_from_queue(input_actions_queue):
     while not _tmp_queue.empty():
         _tmp_action = _tmp_queue.get()
         _cmd_str = ('/usr/bin/php %s/test.php') % (_tmp_action)
-        print ('os.system(_cmd_str)')
+        print ('os.system(%s)') % (_cmd_str)
+        time.sleep(1)
 
 def get_num_cpu_cores():
     pass
@@ -39,7 +46,7 @@ def get_num_cpu_cores():
 def make_queue():
     pass
     _tmp_queue = Queue.Queue()
-    _src_action_list = ['test1','test2','test3','test4']
+    _src_action_list = ['test1','test2','test3','test4','test5']
     for _action in _src_action_list:
         pass
         _tmp_queue.put(_action)
@@ -68,7 +75,15 @@ def main():
         print ('Exit: other %s has running...') % (self_file_name)
         sys.exit()
     #output = subprocess.Popen(cmd_str,shell=True)
-    make_queue()
+    _tmp_queue = make_queue()
+    #
+    threads = []
+    for i in xrange(self_process_num) :
+        thread = SMSAction(do_actions_from_queue(_tmp_queue))
+        thread.start()
+        threads.append(thread)
+    for thread in threads :
+        thread.join()
 
 
 if __name__=='__main__':
