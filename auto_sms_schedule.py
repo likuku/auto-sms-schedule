@@ -36,8 +36,13 @@ def do_actions_from_queue(input_actions_queue):
     while not _tmp_queue.empty():
         _tmp_action = _tmp_queue.get()
         _cmd_str = ('/usr/bin/php %s/test.php') % (_tmp_action)
-        print ('os.system(%s)') % (_cmd_str)
-        time.sleep(1)
+        #print ('os.system(%s)') % (_cmd_str)
+        #os.system('sleep 60')
+        #_do_child = subprocess.Popen(['sleep','60'])
+        subprocess.call(['sleep','60'])
+        print ('os.system(\'sleep 60\')')
+        #time.sleep(1)
+        _tmp_queue.task_done()
 
 def get_num_cpu_cores():
     pass
@@ -75,15 +80,17 @@ def main():
         print ('Exit: other %s has running...') % (self_file_name)
         sys.exit()
     #output = subprocess.Popen(cmd_str,shell=True)
+    _tmp_num_cpu_cores = get_num_cpu_cores()
     _tmp_queue = make_queue()
-    #
+    ####
     threads = []
-    for i in xrange(self_process_num) :
+    for i in xrange(4) :
         thread = SMSAction(do_actions_from_queue(_tmp_queue))
         thread.start()
         threads.append(thread)
     for thread in threads :
         thread.join()
+    _tmp_queue.join()
 
 
 if __name__=='__main__':
