@@ -27,16 +27,19 @@ def do_action(input_action):
     #time.sleep(1)
     _tmp_list.task_done()
 
-def make_sites_list(input_list_dir):
+def make_sms_yiic_list(input_dir_path_str,input_dir_list,input_yiic_path_str):
     pass
+    _base_path = input_dir_path_str
+    _yiic_path = input_yiic_path_str
     _tmp_list = []
-    _tmp_base_path_str = input_list_dir
     _pattern_str='.bak|removed'
-    for _tmp_obj in _tmp_base_path_str:
+    for _tmp_obj in input_dir_list:
         pass
-        if re.search(_pattern_str,_tmp_obj) == None:
+        _tmp_yiic_path = ('%s/%s/%s') % (_base_path,_tmp_obj,_yiic_path)
+        if (re.search(_pattern_str,_tmp_obj) == None and
+            os.path.isfile(_tmp_yiic_path) == True):
             pass
-            _tmp_list.append(_tmp_obj)
+            _tmp_list.append(_tmp_yiic_path)
     return(_tmp_list)
 
 def get_list_dir_orig(input_dir_path_str):
@@ -67,11 +70,6 @@ def check_process():
 
 def main():
     pass
-    _time_start = time.time()
-    # code to run
-    os.system('date')
-    _sites_base_path = '/Users/likuku/tmp/sms'
-    #
     global self_file_name
     self_file_name = sys.argv[0]
     self_process_num = int(check_process())
@@ -81,8 +79,20 @@ def main():
         pass
         print ('Exit: other %s has running...' % (self_file_name))
         sys.exit()
+    #
+    _time_start = time.time()
+    # code to run
+    os.system('date')
+    #
+    _sites_base_path = '/Users/likuku/tmp/sms'
+    _yiic_path = 'sms/protected/yiic.php'
+    _php_cli_path = '/usr/bin/php'
+    _log_base_path = '/var/log/sms_cron'
+
     #output = subprocess.Popen(cmd_str,shell=True)
-    print (make_sites_list(get_list_dir_orig(_sites_base_path)))
+    _list_orig_sites_dir = get_list_dir_orig(_sites_base_path)
+    print (_list_orig_sites_dir)
+    print (make_sms_yiic_list(_sites_base_path,_list_orig_sites_dir,_yiic_path))
     #_tmp_action_list = make_list('test')
     #
     print ('All Action Finished.')
