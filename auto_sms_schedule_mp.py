@@ -14,18 +14,23 @@ import os
 import re
 import time
 import subprocess
+import multiprocessing
 
-def do_action(input_action):
+def do_actions_mp(input_actions_list):
     pass
-    _tmp_action = input_action
-    _cmd_str = ('/usr/bin/php %s/test.php') % (_tmp_action)
-    #print ('os.system(%s)') % (_cmd_str)
-    #os.system('sleep 60')
-    #_do_child = subprocess.Popen(['sleep','60'])
-    subprocess.call(['sleep','60'])
-    print ('os.system(\'sleep 60\')')
-    #time.sleep(1)
-    _tmp_list.task_done()
+    #pool = multiprocessing.Pool(processes=4)
+    pool = multiprocessing.Pool()
+    for _action in input_actions_list:
+        pass
+        pool.apply_async(do_action,(_action))
+    pool.close()
+    pool.join()
+    print ("Sub-process(es) done.")
+
+def do_action(arg):
+    pass
+    print(arg)
+    os.system(arg)
 
 def get_actions_list(input_sms_yiic_info_list,input_phpcli_path,input_log_path):
     pass
