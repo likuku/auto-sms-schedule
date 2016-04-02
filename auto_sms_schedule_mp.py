@@ -27,7 +27,7 @@ def do_action(input_action):
     #time.sleep(1)
     _tmp_list.task_done()
 
-def make_sms_yiic_list(input_dir_path_str,input_dir_list,input_yiic_path_str):
+def get_sms_yiic_list(input_dir_path_str,input_dir_list,input_yiic_path_str):
     pass
     _base_path = input_dir_path_str
     _yiic_path = input_yiic_path_str
@@ -39,7 +39,7 @@ def make_sms_yiic_list(input_dir_path_str,input_dir_list,input_yiic_path_str):
         if (re.search(_pattern_str,_tmp_obj) == None and
             os.path.isfile(_tmp_yiic_path) == True):
             pass
-            _tmp_list.append(_tmp_yiic_path)
+            _tmp_list.append([_tmp_obj,_tmp_yiic_path])
     return(_tmp_list)
 
 def get_list_dir_orig(input_dir_path_str):
@@ -92,7 +92,7 @@ def main():
     #output = subprocess.Popen(cmd_str,shell=True)
     _list_orig_sites_dir = get_list_dir_orig(_sites_base_path)
     print (_list_orig_sites_dir)
-    print (make_sms_yiic_list(_sites_base_path,_list_orig_sites_dir,_yiic_path))
+    print (get_sms_yiic_list(_sites_base_path,_list_orig_sites_dir,_yiic_path))
     #_tmp_action_list = make_list('test')
     #
     print ('All Action Finished.')
