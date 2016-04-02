@@ -42,7 +42,8 @@ def get_actions_list(input_sms_yiic_info_list,input_phpcli_path,input_log_path):
         _tmp_action = ('%s %s %s >> %s/%s.log %s') % (_phpcli,_yiic,_action_opt,
                                                       _log_path,_site,
                                                       _stdout_opt)
-
+        _tmp_list.append(_tmp_action)
+    return(_tmp_list)
 
 def get_sms_yiic_list(input_dir_path_str,input_dir_list,input_yiic_path_str):
     pass
@@ -109,7 +110,10 @@ def main():
     #output = subprocess.Popen(cmd_str,shell=True)
     _list_orig_sites_dir = get_orig_dir_list(_sites_base_path)
     print (_list_orig_sites_dir)
-    print (get_sms_yiic_list(_sites_base_path,_list_orig_sites_dir,_yiic_path))
+    _sms_yiic_list = get_sms_yiic_list(_sites_base_path,
+                                       _list_orig_sites_dir,_yiic_path)
+    print (_sms_yiic_list)
+    print (get_actions_list(_sms_yiic_list,_phpcli_path,_log_base_path))
     #_tmp_action_list = make_list('test')
     #
     print ('All Action Finished.')
