@@ -27,6 +27,23 @@ def do_action(input_action):
     #time.sleep(1)
     _tmp_list.task_done()
 
+def get_actions_list(input_sms_yiic_info_list,input_phpcli_path,input_log_path):
+    pass
+    _phpcli = input_phpcli_path
+    _action_opt = 'schedule'
+    _stdout_opt = '2>&1'
+    _log_path = input_log_path
+    _sms_yiic_info_list = input_sms_yiic_info_list
+    _tmp_list = []
+    #
+    for _tmp_obj in _sms_yiic_info_list:
+        pass
+        _site,_yiic = _tmp_obj[0],_tmp_obj[1]
+        _tmp_action = ('%s %s %s >> %s/%s.log %s') % (_phpcli,_yiic,_action_opt,
+                                                      _log_path,_site,
+                                                      _stdout_opt)
+
+
 def get_sms_yiic_list(input_dir_path_str,input_dir_list,input_yiic_path_str):
     pass
     _base_path = input_dir_path_str
@@ -86,7 +103,7 @@ def main():
     #
     _sites_base_path = '/Users/likuku/tmp/sms'
     _yiic_path = 'sms/protected/yiic.php'
-    _php_cli_path = '/usr/bin/php'
+    _phpcli_path = '/usr/bin/php'
     _log_base_path = '/var/log/sms_cron'
 
     #output = subprocess.Popen(cmd_str,shell=True)
