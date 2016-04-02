@@ -29,10 +29,8 @@ def do_action(input_action):
 
 def get_actions_list(input_sms_yiic_info_list,input_phpcli_path,input_log_path):
     pass
-    _phpcli = input_phpcli_path
-    _action_opt = 'schedule'
-    _stdout_opt = '2>&1'
-    _log_path = input_log_path
+    _phpcli,_log_path = input_phpcli_path,input_log_path
+    _action_opt,_stdout_opt = 'schedule','2>&1'
     _sms_yiic_info_list = input_sms_yiic_info_list
     _tmp_list = []
     #
