@@ -18,11 +18,11 @@ import multiprocessing
 
 def do_actions_mp(input_actions_list):
     pass
-    #pool = multiprocessing.Pool(processes=4)
-    pool = multiprocessing.Pool()
+    pool = multiprocessing.Pool(processes=8)
+    #pool = multiprocessing.Pool()
     for _action in input_actions_list:
         pass
-        pool.apply_async(do_action,(_action))
+        pool.apply_async(do_action,(_action,))
     pool.close()
     pool.join()
     print ("Sub-process(es) done.")
@@ -31,6 +31,7 @@ def do_action(arg):
     pass
     print(arg)
     os.system(arg)
+    #time.sleep(5)
 
 def get_actions_list(input_sms_yiic_info_list,input_phpcli_path,input_log_path):
     pass
@@ -105,18 +106,22 @@ def main():
     # code to run
     os.system('date')
     #
-    _sites_base_path = '/Users/likuku/tmp/sms'
+    #_sites_base_path = '/Users/likuku/tmp/sms'
+    _sites_base_path = '/export/storage/www/sites'
     _yiic_path = 'sms/protected/yiic.php'
     _phpcli_path = '/usr/bin/php'
     _log_base_path = '/var/log/sms_cron'
 
     #output = subprocess.Popen(cmd_str,shell=True)
-    _list_orig_sites_dir = get_orig_dir_list(_sites_base_path)
-    print (_list_orig_sites_dir)
+    _orig_sites_dir_list = get_orig_dir_list(_sites_base_path)
+    print (_orig_sites_dir_list)
     _sms_yiic_list = get_sms_yiic_list(_sites_base_path,
-                                       _list_orig_sites_dir,_yiic_path)
+                                       _orig_sites_dir_list,_yiic_path)
     print (_sms_yiic_list)
-    print (get_actions_list(_sms_yiic_list,_phpcli_path,_log_base_path))
+    _actions_list = get_actions_list(_sms_yiic_list,_phpcli_path,_log_base_path)
+    print (_actions_list)
+    #
+    do_actions_mp(_actions_list)
     #_tmp_action_list = make_list('test')
     #
     print ('All Action Finished.')
