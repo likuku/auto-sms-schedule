@@ -6,7 +6,7 @@ auto_sms_schedule_mp.py
 Updated by kuku.li on 2016-04-01.
 Created by kuku.li on 2016-04-01.
 Copyright (c) 2016 __MyCompanyName__. All rights reserved.
-/export/storage/www/sites/demo/sms/protected/yiic.php
+/usr/bin/php /export/storage/www/sites/XXX/sms/protected/yiic.php schedule >> /var/log/sms_cron/XXX.log 2>&1 &
 """
 
 import sys
@@ -42,7 +42,7 @@ def get_sms_yiic_list(input_dir_path_str,input_dir_list,input_yiic_path_str):
             _tmp_list.append([_tmp_obj,_tmp_yiic_path])
     return(_tmp_list)
 
-def get_list_dir_orig(input_dir_path_str):
+def get_orig_dir_list(input_dir_path_str):
     pass
     try:
         pass
@@ -90,7 +90,7 @@ def main():
     _log_base_path = '/var/log/sms_cron'
 
     #output = subprocess.Popen(cmd_str,shell=True)
-    _list_orig_sites_dir = get_list_dir_orig(_sites_base_path)
+    _list_orig_sites_dir = get_orig_dir_list(_sites_base_path)
     print (_list_orig_sites_dir)
     print (get_sms_yiic_list(_sites_base_path,_list_orig_sites_dir,_yiic_path))
     #_tmp_action_list = make_list('test')
