@@ -15,6 +15,7 @@ import re
 import time
 import subprocess
 import multiprocessing
+import random
 
 def do_actions_auto(input_actions_list):
     pass
@@ -54,6 +55,19 @@ def get_action_process_count():
     recall_file = os.popen(cmd_str)
     _action_process_count = int(recall_file.read().rstrip())
     return _action_process_count
+
+def get_random_actions_list(input_actions_list):
+    pass
+    _tmp_index_list = []
+    _tmp_list = []
+    for _index in range(len(input_actions_list)):
+        pass
+        _tmp_index_list.append(int(_index))
+    random.shuffle(_tmp_index_list)
+    for _r_index in _tmp_index_list:
+        pass
+        _tmp_list.append(input_actions_list[_r_index])
+    return _tmp_list
 
 def get_actions_list(input_sms_yiic_info_list,input_phpcli_path,input_log_path):
     pass
@@ -126,7 +140,7 @@ def main():
     #print (_actions_list)
     print ('get_action_process_count:',get_action_process_count())
     #
-    do_actions_auto(_actions_list)
+    do_actions_auto(get_random_actions_list(_actions_list))
     #
     print ('All Action Finished.')
     os.system('date')
