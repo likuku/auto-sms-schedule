@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 """
-auto_sms_schedule.py
+auto_sms_schedule_mt.py
 Updated by kuku.li on 2016-04-01.
 Created by kuku.li on 2016-03-31.
 Copyright (c) 2016 __MyCompanyName__. All rights reserved.
@@ -37,16 +37,16 @@ def do_actions_from_queue(input_actions_queue):
         _tmp_action = _tmp_queue.get()
         _cmd_str = ('/usr/bin/php %s/test.php') % (_tmp_action)
         #print ('os.system(%s)') % (_cmd_str)
-        #os.system('sleep 60')
+        print ('os.system(\'sleep 1\')')
+        os.system('sleep 1')
+        #subprocess.call(['sleep','1'])
         #_do_child = subprocess.Popen(['sleep','60'])
-        subprocess.call(['sleep','60'])
-        print ('os.system(\'sleep 60\')')
         #time.sleep(1)
         _tmp_queue.task_done()
 
 def get_num_cpu_cores():
     pass
-    return (4)
+    return (2)
 
 def make_queue():
     pass
@@ -84,8 +84,9 @@ def main():
     _tmp_queue = make_queue()
     ####
     threads = []
-    for i in xrange(4) :
+    for i in xrange(_tmp_num_cpu_cores) :
         thread = SMSAction(do_actions_from_queue(_tmp_queue))
+        thread.daemon = True
         thread.start()
         threads.append(thread)
     for thread in threads :
