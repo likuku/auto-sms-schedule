@@ -3,7 +3,7 @@
 
 """
 auto_sms_schedule_mp.py
-Updated by kuku.li on 2016-04-01.
+Updated by kuku.li on 2016-04-03.
 Created by kuku.li on 2016-04-01.
 Copyright (c) 2016 __MyCompanyName__. All rights reserved.
 /usr/bin/php /export/storage/www/sites/XXX/sms/protected/yiic.php schedule >> /var/log/sms_cron/XXX.log 2>&1 &
@@ -30,7 +30,8 @@ def do_actions_mp(input_actions_list):
 def do_action(arg):
     pass
     print(arg)
-    os.system(arg)
+    subprocess.call(arg,shell=True)
+    #os.system(arg)
     #time.sleep(5)
 
 def get_actions_list(input_sms_yiic_info_list,input_phpcli_path,input_log_path):
@@ -54,7 +55,7 @@ def get_sms_yiic_list(input_dir_path_str,input_dir_list,input_yiic_path_str):
     _base_path = input_dir_path_str
     _yiic_path = input_yiic_path_str
     _tmp_list = []
-    _pattern_str='.bak|removed'
+    _pattern_str='.bak|removed|test'
     for _tmp_obj in input_dir_list:
         pass
         _tmp_yiic_path = ('%s/%s/%s') % (_base_path,_tmp_obj,_yiic_path)
