@@ -69,7 +69,7 @@ def get_actions_list(input_sms_yiic_info_list,input_phpcli_path,input_log_path):
                                                       _log_path,_site,
                                                       _stdout_opt)
         _tmp_list.append(_tmp_action)
-    return(_tmp_list)
+    return _tmp_list
 
 def get_sms_yiic_list(input_dir_path_str,input_dir_list,input_yiic_path_str):
     pass
@@ -84,7 +84,7 @@ def get_sms_yiic_list(input_dir_path_str,input_dir_list,input_yiic_path_str):
             os.path.isfile(_tmp_yiic_path) == True):
             pass
             _tmp_list.append([_tmp_obj,_tmp_yiic_path])
-    return(_tmp_list)
+    return _tmp_list
 
 def get_orig_dir_list(input_dir_path_str):
     pass
@@ -99,7 +99,7 @@ def get_orig_dir_list(input_dir_path_str):
         if os.path.isdir(input_dir_path_str+'/'+_tmp_obj) == True:
             _tmp_dir_list.append(_tmp_obj)
     #
-    return(_tmp_dir_list)
+    return _tmp_dir_list
 
 def main():
     pass
