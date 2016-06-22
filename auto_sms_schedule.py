@@ -3,7 +3,7 @@
 
 """
 auto_sms_schedule.py
-Updated by kuku.li on 2016-04-03.
+Updated by kuku.li on 2016-06-23.
 Created by kuku.li on 2016-04-03.
 Copyright (c) 2016 __MyCompanyName__. All rights reserved.
 /usr/bin/php /export/storage/www/sites/XXX/sms/protected/yiic.php schedule >> /var/log/sms_cron/XXX.log 2>&1 &
@@ -85,17 +85,23 @@ def get_actions_list(input_sms_yiic_info_list,input_phpcli_path,input_log_path):
         _tmp_list.append(_tmp_action)
     return _tmp_list
 
-def get_sms_yiic_list(input_dir_path_str,input_dir_list,input_yiic_path_str):
+def get_sms_yiic_list(input_dir_path_str,
+                      input_dir_list,
+                      input_yiic_path_str,
+                      input_disable_file_path_str):
     pass
     _base_path = input_dir_path_str
     _yiic_path = input_yiic_path_str
+    _disable_path = input_disable_file_path_str
     _tmp_list = []
     _pattern_str='.bak|removed'
     for _tmp_obj in input_dir_list:
         pass
         _tmp_yiic_path = ('%s/%s/%s') % (_base_path,_tmp_obj,_yiic_path)
+        _tmp_disable_path = ('%s/%s/%s') % (_base_path,_tmp_obj,_disable_path)
         if (re.search(_pattern_str,_tmp_obj) == None and
-            os.path.isfile(_tmp_yiic_path) == True):
+            os.path.isfile(_tmp_yiic_path) == True and
+            os.path.isfile(_tmp_disable_path) == False):
             pass
             _tmp_list.append([_tmp_obj,_tmp_yiic_path])
     return _tmp_list
@@ -126,13 +132,15 @@ def main():
     _yiic_path = 'sms/protected/yiic.php'
     _phpcli_path = '/usr/bin/php'
     _log_base_path = '/var/log/sms_cron'
+    _disable_file_path = 'sms/disable_cron.txt'
 
     #output = subprocess.Popen(cmd_str,shell=True)
     _orig_sites_dir_list = get_orig_dir_list(_sites_base_path)
     #print (_orig_sites_dir_list)
     _sms_yiic_list = get_sms_yiic_list(_sites_base_path,
                                        _orig_sites_dir_list,
-                                       _yiic_path)
+                                       _yiic_path,
+                                       _disable_file_path)
     #print (_sms_yiic_list)
     _actions_list = get_actions_list(_sms_yiic_list,
                                      _phpcli_path,
