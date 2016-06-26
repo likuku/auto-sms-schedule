@@ -17,6 +17,18 @@ import subprocess
 import multiprocessing
 import random
 
+def check_process():
+    pass
+    # Jun26,2016 add self_file_name
+    self_file_name = sys.argv[0]
+    # Oct17,2013
+    # return a number of all self .py running
+    # Oct25,2013
+    cmd_str = 'ps aux | grep "python" | grep "%s" | grep -v "grep" | wc -l' % (self_file_name)
+    #print cmd_str
+    recall_file = os.popen(cmd_str)
+    return recall_file.read().rstrip()
+
 def do_actions_auto(input_actions_list):
     pass
     _cpu_count = multiprocessing.cpu_count()
@@ -133,7 +145,15 @@ def main():
     _phpcli_path = '/usr/bin/php'
     _log_base_path = '/var/log/sms_cron'
     _disable_file_path = 'sms/disable_cron.txt'
-
+    #
+    # Jun26,2016 add check_process
+    _self_process_num = int(check_process())
+    print ('self_process_num: %s' % _self_process_num)
+    if _self_process_num > 2:
+        pass
+        print ('Exit: more than 2 auto_sms_schedule.py has running...')
+        sys.exit()
+    #
     #output = subprocess.Popen(cmd_str,shell=True)
     _orig_sites_dir_list = get_orig_dir_list(_sites_base_path)
     #print (_orig_sites_dir_list)
