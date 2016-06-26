@@ -3,7 +3,7 @@
 
 """
 auto_sms_schedule.py
-Updated by kuku.li on 2016-06-23.
+Updated by kuku.li on 2016-06-26.
 Created by kuku.li on 2016-04-03.
 Copyright (c) 2016 __MyCompanyName__. All rights reserved.
 /usr/bin/php /export/storage/www/sites/XXX/sms/protected/yiic.php schedule >> /var/log/sms_cron/XXX.log 2>&1 &
